@@ -1,0 +1,70 @@
+# Values for kube-prometheus-stack Helm chart
+prometheus:
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorSelector: {}
+    serviceMonitorNamespaceSelector: {}
+
+grafana:
+  adminPassword: "admin"
+  service:
+    type: NodePort
+    nodePort: 30080
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+      - name: 'default'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default
+  dashboards:
+    default:
+      taskboard-dashboard:
+        json: |
+          {
+            "annotations": { "list": [] },
+            "editable": true,
+            "title": "TaskBoard — Microservices Observability",
+            "panels": [
+              {
+                "type": "stat",
+                "title": "Backend API Request Rate (req/s)",
+                "gridPos": { "h": 6, "w": 12, "x": 0, "y": 0 },
+                "targets": [
+                  {
+                    "expr": "sum(rate(http_requests_total{job=~\"taskboard.*\"}[1m]))",
+                    "legendFormat": "Total RPS"
+                  }
+                ]
+              },
+              {
+                "type": "timeseries",
+                "title": "HTTP Request Latency (p95)",
+                "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+                "targets": [
+                  {
+                    "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{job=~\"taskboard.*\"}[1m])) by (le))",
+                    "legendFormat": "p95 Latency (s)"
+                  }
+                ]
+              },
+              {
+                "type": "timeseries",
+                "title": "HTTP Requests by Status Code",
+                "gridPos": { "h": 8, "w": 24, "x": 0, "y": 6 },
+                "targets": [
+                  {
+                    "expr": "sum(rate(http_requests_total{job=~\"taskboard.*\"}[1m])) by (status)",
+                    "legendFormat": "Status {{status}}"
+                  }
+                ]
+              }
+            ],
+            "schemaVersion": 36,
+            "version": 1
+          }

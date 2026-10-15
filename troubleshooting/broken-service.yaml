@@ -1,0 +1,15 @@
+# Troubleshooting Lab 2: Broken Service Selector (No Endpoints)
+# Scenario: Service selector does not match pod labels
+apiVersion: v1
+kind: Service
+metadata:
+  name: broken-backend-service
+  namespace: taskboard
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8000
+      targetPort: 8000
+  selector:
+    # Intentionally misconfigured label selector (app: wrong-label instead of backend)
+    app: wrong-backend-label
