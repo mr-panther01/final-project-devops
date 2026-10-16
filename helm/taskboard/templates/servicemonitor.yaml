@@ -5,8 +5,11 @@ metadata:
   name: {{ include "taskboard.fullname" . }}-backend
   labels:
     {{- include "taskboard.labels" . | nindent 4 }}
-    release: prometheus
+    release: monitoring
 spec:
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
   selector:
     matchLabels:
       app: backend
