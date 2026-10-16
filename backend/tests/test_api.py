@@ -88,3 +88,13 @@ def test_task_stats(client):
     assert data["done"] == 1
     assert data["by_priority"]["HIGH"] == 1
     assert data["by_priority"]["CRITICAL"] == 1
+
+def test_task_validation_error(client):
+    """Test POST /api/tasks with empty title returns 422 Unprocessable Entity."""
+    response = client.post("/api/tasks", json={"title": ""})
+    assert response.status_code == 422
+
+def test_update_nonexistent_task(client):
+    """Test PUT /api/tasks/9999 returns 404 Not Found."""
+    response = client.put("/api/tasks/9999", json={"title": "Non-existent"})
+    assert response.status_code == 404
