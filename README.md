@@ -1,6 +1,6 @@
-# TaskBoard Cloud — DevOps Capstone Final Project
+# TaskBoard Cloud — DevOps Capstone Project
 
-A cloud-native SaaS Task Management application designed and built to fulfill the **Session 21 DevOps Final Capstone Project Rubric (100/100 points)**.
+A cloud-native SaaS Task Management application built from the ground up to demonstrate modern DevOps engineering practices.
 
 This repository demonstrates the end-to-end journey of an application from a developer's local environment through automated testing, containerization, DevSecOps vulnerability scanning, automated CI/CD deployment, AWS infrastructure provisioning via Terraform, Kubernetes orchestration with Helm, and live Prometheus/Grafana observability.
 
@@ -38,20 +38,20 @@ GitHub Actions CI/CD Pipeline (.github/workflows/ci-cd.yml)
 
 ---
 
-## 📋 Module-by-Module Rubric Compliance (100 Points)
+## 📋 Project Modules & Capabilities
 
-| Module | Topic | Points | Implementation in Repository |
-| :--- | :--- | :---: | :--- |
-| **M1** | **Application** | 10 | FastAPI backend (`/health`, `/ready`, `/metrics`, CRUD `/api/tasks`), PostgreSQL with Alembic migrations (`backend/alembic/versions/`), React + Vite responsive UI. |
-| **M2** | **Testing** | 10 | Pytest suite (`backend/tests/`) with 8 test cases covering all endpoints using an isolated SQLite in-memory test DB via `conftest.py`. |
-| **M3** | **Git & GitHub** | 5 | Clean Git history, comprehensive `.gitignore` excluding `.env`, `node_modules`, `__pycache__`, `.venv`, and `*.tfstate`. |
-| **M4** | **Docker** | 10 | Backend `Dockerfile` and Frontend multi-stage `Dockerfile` (Node build + unprivileged Nginx runtime) running as non-root users (`appuser`). Complete `docker-compose.yml`. |
-| **M5** | **CI/CD** | 15 | GitHub Actions (`.github/workflows/ci-cd.yml`) executing Pytest, frontend build, Docker container builds, Trivy scan, and pushing to GHCR with Git SHA tags (`${{ github.sha }}`). |
-| **M6** | **DevSecOps** | 5 | Trivy container security scans embedded directly in CI/CD pipeline set to fail on `HIGH` or `CRITICAL` CVEs. |
-| **M7** | **Terraform** | 15 | Full AWS IaC (`terraform/`): VPC, 2 public subnets, 2 private subnets, NAT gateway, IAM roles, and EKS managed node group. Includes `terraform.tfvars.example`. |
-| **M8** | **Kubernetes + Helm**| 15 | `k8s/namespace.yaml`, complete Helm chart (`helm/taskboard/`), 2+ replicas per deployment, ClusterIP services, Horizontal Pod Autoscaler (HPA), and Ingress. |
-| **M9** | **Observability** | 10 | FastAPI `/metrics` endpoint using `prometheus-fastapi-instrumentator`, `ServiceMonitor` manifest, and custom Grafana dashboard configuration (`monitoring/`). |
-| **M10**| **Documentation** | 5 | Comprehensive `README.md` and troubleshooting walkthroughs (`troubleshooting/broken-image.yaml` & `troubleshooting/broken-service.yaml`). |
+| Module | Topic | Implementation in Repository |
+| :--- | :--- | :--- |
+| **M1** | **Application** | FastAPI backend (`/health`, `/ready`, `/metrics`, CRUD `/api/tasks`), PostgreSQL with Alembic migrations (`backend/alembic/versions/`), React + Vite responsive UI. |
+| **M2** | **Testing** | Pytest suite (`backend/tests/`) with comprehensive test cases covering all endpoints using an isolated SQLite in-memory test DB via `conftest.py`. |
+| **M3** | **Git & GitHub** | Clean Git history, conventional commits, comprehensive `.gitignore` excluding `.env`, `node_modules`, `__pycache__`, `.venv`, and `*.tfstate`. |
+| **M4** | **Docker** | Backend `Dockerfile` and Frontend multi-stage `Dockerfile` (Node build + unprivileged Nginx runtime) running as non-root users (`appuser`). Complete `docker-compose.yml`. |
+| **M5** | **CI/CD** | GitHub Actions (`.github/workflows/ci-cd.yml`) executing Pytest, frontend build, Docker container builds, Trivy scan, and pushing to GHCR with Git SHA tags (`${{ github.sha }}`). |
+| **M6** | **DevSecOps** | Trivy container security scans embedded directly in CI/CD pipeline configured to fail on `HIGH` or `CRITICAL` CVEs. |
+| **M7** | **Terraform** | Full AWS IaC (`terraform/`): VPC, 2 public subnets, 2 private subnets, NAT gateway, IAM roles, and EKS managed node group. Includes `terraform.tfvars.example`. |
+| **M8** | **Kubernetes + Helm**| `k8s/namespace.yaml`, complete Helm chart (`helm/taskboard/`), 2+ replicas per deployment, ClusterIP services, Horizontal Pod Autoscaler (HPA), and Ingress. |
+| **M9** | **Observability** | FastAPI `/metrics` endpoint using `prometheus-fastapi-instrumentator`, `ServiceMonitor` manifest, and custom Grafana dashboard configuration (`monitoring/`). |
+| **M10**| **Documentation** | Comprehensive documentation, architecture breakdown, and troubleshooting walkthroughs (`troubleshooting/broken-image.yaml` & `troubleshooting/broken-service.yaml`). |
 
 ---
 
