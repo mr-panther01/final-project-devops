@@ -16,6 +16,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - taskboard-network
 
   backend:
     build:
@@ -36,6 +38,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
+    networks:
+      - taskboard-network
 
   frontend:
     build:
@@ -48,6 +52,12 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+    networks:
+      - taskboard-network
 
 volumes:
   postgres_data:
+
+networks:
+  taskboard-network:
+    driver: bridge
